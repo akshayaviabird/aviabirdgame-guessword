@@ -148,6 +148,11 @@ a {
 	margin: auto;
 }
 
+.timer_bar{
+	display: flex;
+	justify-content: center;
+}
+
 /* Join Page */
 .join-container {
 	max-width: 500px;
