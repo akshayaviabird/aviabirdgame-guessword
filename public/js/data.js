@@ -49,12 +49,12 @@ function runGame() {
     }
     // }, 10000);
 
-    var timeleft = 10;
+    var timeleft = 20;
     var downloadTimer = setInterval(function () {
         if (timeleft <= 0) {
             clearInterval(downloadTimer);
         }
-        document.getElementById("progressBar").value = 10 - timeleft;
+        document.getElementById("progressBar").value = 20 - timeleft;
         timeleft -= 1;
         document.getElementById("rohit").innerHTML = timeleft + 1;
         if (timeleft + 1 == 0) {
