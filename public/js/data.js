@@ -13,7 +13,14 @@ let btn = document.getElementById('btnclick')
 let getImage = document.getElementById('displayImage')
 let getText = document.getElementById('test-guess')
 let dataID = 0
-let answer ="";
+let answer = "";
+if (username == "admin") {
+    document.getElementById('btnclick').innerText = "Play Game"
+}
+else {
+    document.getElementById('btnclick').style.display = "none"
+}
+
 
 function runGame() {
 
@@ -33,7 +40,12 @@ function runGame() {
         getText.innerHTML = arr.word.replace(arr.word.substring(1, arr.word.length - 1), "*******");
         answer = arr.word;
         btnclick
-        document.getElementById('btnclick').innerText = "next"
+        if (username == "admin") {
+            document.getElementById('btnclick').innerText = "next"
+        }
+        else {
+            document.getElementById('btnclick').style.display = "none"
+        }
     }
     // }, 10000);
 
@@ -47,8 +59,10 @@ function runGame() {
         document.getElementById("rohit").innerHTML = timeleft + 1;
         if (timeleft + 1 == 0) {
             document.getElementById("seconds").innerHTML = "Time's Up";
+
             document.getElementById('btnclick').innerText = "next"
-            if (arr == undefined) {
+
+            if (arr == undefined || username !== "admin") {
                 document.getElementById('btnclick').style.display = "none"
             }
             else {
@@ -58,8 +72,12 @@ function runGame() {
         }
         else {
             document.getElementById("seconds").innerHTML = "seconds Left";
-            document.getElementById('btnclick').innerText = "next"
-            document.getElementById('btnclick').style.display = "none"
+            if (username == "admin") {
+                document.getElementById('btnclick').innerText = "next"
+            }
+            else {
+                document.getElementById('btnclick').style.display = "none"
+            }
         }
 
     }, 1000);
@@ -67,7 +85,7 @@ function runGame() {
 }
 
 // Listen for starting game
-socket.on('startGame', ()=> {
+socket.on('startGame', () => {
     runGame();
 });
 
@@ -81,25 +99,25 @@ btn.addEventListener('click', () => {
 // Message submit
 chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
-  
+
     // Get message text
     let msg = e.target.elements.msg.value;
-  
+
     msg = msg.trim();
-  
+
     if (!msg) {
-      return false;
+        return false;
     }
-    if(msg ===  answer){
+    if (msg.toLowerCase() === answer.toLowerCase()) {
         msg = "Guessed it correctly"
     }
     // Emit message to server
     socket.emit('chatMessage', msg);
-  
+
     // Clear input
     e.target.elements.msg.value = '';
     e.target.elements.msg.focus();
-  });
+});
 
 
 
