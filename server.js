@@ -44,6 +44,8 @@ io.on('connection', socket => {
     });
   });
 
+
+
   // Listen for chatMessage
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
@@ -51,6 +53,12 @@ io.on('connection', socket => {
     io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
+  // Listen for start of game
+  socket.on('playGame', (msg) => {
+    const user = getCurrentUser(socket.id);
+    
+    io.to(user.room).emit('startGame', "Game started" )
+  })
   // Runs when client disconnects
   socket.on('disconnect', () => {
     const user = userLeave(socket.id);
