@@ -15,14 +15,15 @@ let getText = document.getElementById('test-guess')
 let dataID = 0
 
 btn.addEventListener('click', () => {
-    setInterval(function () {
+    // setInterval(function () {
         let arr = []
         dataID = dataID + 1
         arr = arrData[0].find(item => item.id == dataID)
         getImage.src = arr.url
         getText.innerHTML = arr.word.replace(arr.word.substring(1, arr.word.length - 1), "*******");
-
-    }, 3000);
+        btnclick
+        document.getElementById('btnclick').innerText="next"
+    // }, 10000);
 
     var timeleft = 10;
     var downloadTimer = setInterval(function () {
