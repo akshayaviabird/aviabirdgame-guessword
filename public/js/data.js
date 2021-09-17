@@ -12,18 +12,19 @@ fetch('https://immense-dusk-54293.herokuapp.com/api/v1/guessimage')
 let btn = document.getElementById('btnclick')
 let getImage = document.getElementById('displayImage')
 let getText = document.getElementById('test-guess')
-let dataID = 1
+let dataID = 0
 
 btn.addEventListener('click', () => {
     setInterval(function () {
-
         let arr = []
         dataID = dataID + 1
         arr = arrData[0].find(item => item.id == dataID)
-        getImage.src = arr[0].url
-        getImage.innerHTML = arr[0].word.replace(str.substring(1, arr[0].word.length - 1), "*******");
+        getImage.src = arr.url
+        getText.innerHTML = arr.word.replace(arr.word.substring(1, arr.word.length - 1), "*******");
+
     }, 3000);
-    var timeleft = 5;
+
+    var timeleft = 10;
     var downloadTimer = setInterval(function () {
         if (timeleft <= 0) {
             clearInterval(downloadTimer);
@@ -39,7 +40,6 @@ btn.addEventListener('click', () => {
         }
 
     }, 1000);
-
 
 })
 
