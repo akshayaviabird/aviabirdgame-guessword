@@ -13,7 +13,7 @@ let btn = document.getElementById('btnclick')
 let getImage = document.getElementById('displayImage')
 let getText = document.getElementById('test-guess')
 let dataID = 0
-
+let answer ="";
 
 function runGame() {
 
@@ -31,17 +31,18 @@ function runGame() {
 
         getImage.src = arr.url
         getText.innerHTML = arr.word.replace(arr.word.substring(1, arr.word.length - 1), "*******");
+        answer = arr.word;
         btnclick
         document.getElementById('btnclick').innerText = "next"
     }
     // }, 10000);
 
-    var timeleft = 3;
+    var timeleft = 10;
     var downloadTimer = setInterval(function () {
         if (timeleft <= 0) {
             clearInterval(downloadTimer);
         }
-        document.getElementById("progressBar").value = 3 - timeleft;
+        document.getElementById("progressBar").value = 10 - timeleft;
         timeleft -= 1;
         document.getElementById("rohit").innerHTML = timeleft + 1;
         if (timeleft + 1 == 0) {
@@ -62,7 +63,7 @@ function runGame() {
         }
 
     }, 1000);
-    
+
 }
 
 // Listen for starting game
@@ -89,7 +90,9 @@ chatForm.addEventListener('submit', (e) => {
     if (!msg) {
       return false;
     }
-  
+    if(msg ===  answer){
+        msg = "Guessed it correctly"
+    }
     // Emit message to server
     socket.emit('chatMessage', msg);
   
